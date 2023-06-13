@@ -32,6 +32,8 @@ class HeadHunterApi(Vacancies, ABC):
             'per_page': 10  # Кол-во вакансий на 1 странице
         }
 
+
+
         req = requests.get(self.url, params)  # Посылаем запрос к API
         data_in = req.content.decode()  # Декодируем его ответ, чтобы Кириллица отображалась корректно
         req.close()
@@ -43,4 +45,7 @@ class HeadHunterApi(Vacancies, ABC):
 
 
 test_1 = HeadHunterApi('python')
-print(test_1.get_vacancies())
+test_print = test_1.get_vacancies()
+print(test_print)
+for item in test_print['items']:
+    print(item)
