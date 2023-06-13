@@ -15,6 +15,9 @@ class HeadHunterApi(Vacancies, ABC):
         self.keyword = keyword  # ключевое слово, по которому ведется поиск вакансии
         self.url = 'https://api.hh.ru/vacancies'  # адрес запроса вакансий
 
+    def __len__(self):
+        pass
+
     def get_vacancies(self):
         """
         Получаем список вакансий по запросу
@@ -34,6 +37,10 @@ class HeadHunterApi(Vacancies, ABC):
         req.close()
 
         data_out = json.loads(data_in)  # преобразуем полученные данные из формата json
+        print(len(data_out))
 
         return data_out
 
+
+test_1 = HeadHunterApi('python')
+print(test_1.get_vacancies())
