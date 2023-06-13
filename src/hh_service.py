@@ -15,7 +15,6 @@ class HeadHunterApi(Vacancies, ABC):
     def __init__(self, keyword):
         self.keyword = keyword  # ключевое слово, по которому ведется поиск вакансии
         self.url_api = 'https://api.hh.ru/vacancies'  # адрес запроса вакансий через API
-        self.page_num = 0
         self.vacancies_list = []
 
     def get_vacancies(self):
@@ -25,8 +24,10 @@ class HeadHunterApi(Vacancies, ABC):
         """
 
         per_page_num = 2  # задаем кол-во вакансий на 1 странице
+        page_num = 3  # задаем количество страниц
 
-        for page in range(0, 3):
+        # перебираем страницы с вакансиями
+        for page in range(0, page_num):
 
             # формируем справочник для параметров GET-запроса
             params = {
@@ -62,22 +63,10 @@ class HeadHunterApi(Vacancies, ABC):
 
         return None
 
-    # def get_page_vacancies(self):
-    #     """
-    #     Получает страницу с вакансиями
-    #     :return:
-    #     """
-    #
-    #
-    #
-    #     return data_out
-
 
 test_1 = HeadHunterApi('python')
 test_print = test_1.get_vacancies()
-# print(test_print)
-# for item in test_print['items']:
-#     print(item)
+
 # print(test_print['items'][0])  # весь словарь
 # print(test_print['items'][0]['id'])  # id вакансии
 # print(test_print['items'][0]['name'])  # название вакансии
