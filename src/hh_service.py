@@ -15,6 +15,7 @@ class HeadHunterApi(Vacancies, ABC):
         self.keyword = keyword  # ключевое слово, по которому ведется поиск вакансии
         self.url = 'https://api.hh.ru/vacancies'  # адрес запроса вакансий
 
+
     def __len__(self):
         pass
 
@@ -32,14 +33,18 @@ class HeadHunterApi(Vacancies, ABC):
             'per_page': 10  # Кол-во вакансий на 1 странице
         }
 
+        headers = {
+            "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 "
+                          "Safari/537.36",  # Replace with your User-Agent header
+        }
 
+        # req = requests.get(self.url, params)  # Посылаем запрос к API
 
-        req = requests.get(self.url, params)  # Посылаем запрос к API
+        req = requests.get(self.url, params, headers=headers)  # Посылаем запрос к API
         data_in = req.content.decode()  # Декодируем его ответ, чтобы Кириллица отображалась корректно
         req.close()
 
         data_out = json.loads(data_in)  # преобразуем полученные данные из формата json
-        print(len(data_out))
 
         return data_out
 
@@ -47,5 +52,12 @@ class HeadHunterApi(Vacancies, ABC):
 test_1 = HeadHunterApi('python')
 test_print = test_1.get_vacancies()
 print(test_print)
-for item in test_print['items']:
-    print(item)
+# for item in test_print['items']:
+#     print(item)
+print(test_print['items'][0])
+print(test_print['items'][0]['name'])  # название вакансии
+print(test_print['items'][0]['salary']['from'])  # зарплата от
+print(test_print['items'][0]['salary']['to'])  # зарплата от
+print(test_print['items'][0]['alternate_url'])  # ссылка на вакансию
+print(test_print['items'][0]['snippet']['responsibility'])  # описание вакансии
+print(test_print['items'][0]['experience']['name'])  # опыт работы
