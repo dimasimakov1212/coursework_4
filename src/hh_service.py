@@ -57,22 +57,34 @@ class HeadHunterApi(Vacancies, ABC):
 
             data_out = json.loads(data_in)  # преобразуем полученные данные из формата json
 
-            # полученные вакансии складываем в список
+            vacancy_dict = {}  # словарь для данных о вакансии
+
+            # полученные вакансии складываем в словарь и добавляем его в список
             for vacancy in data_out['items']:
 
-                # vacancy_list = vacancy[0]
+                vacancy_dict['id'] = vacancy['id']  # id вакансии
+                vacancy_dict['name'] = vacancy['name']  # название вакансии
+                if vacancy['salary']:
+                    vacancy_dict['salary_from'] = vacancy['salary']['from']
+                    vacancy_dict['salary_to'] = vacancy['salary']['to']
+                else:
+                    vacancy_dict['salary_from'] = None
+                    vacancy_dict['salary_to'] = None
+                vacancy_dict['vacancy_url'] = vacancy['alternate_url']
+                vacancy_dict['description'] = vacancy['snippet']['responsibility']
+                vacancy_dict['experience'] = vacancy['experience']['name']
 
-                print(vacancy)
-            #
-            #     # self.vacancies_list.append(vacancy_list)
+                # print(vacancy)
+                self.vacancies_list.append(vacancy_dict)
 
             time.sleep(0.25)
 
-        return None
+        return self.vacancies_list
 
 
 test_1 = HeadHunterApi('python')
 test_print = test_1.get_vacancies()
+print(test_1.vacancies_list)
 
 # print(test_print['items'][0])  # весь словарь
 # print(test_print['items'][0]['id'])  # id вакансии
