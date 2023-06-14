@@ -24,8 +24,8 @@ class HeadHunterApi(Vacancies, ABC):
         :return: список вакансий по запросу
         """
 
-        per_page_num = 2  # задаем кол-во вакансий на 1 странице
-        page_num = 3  # задаем количество страниц
+        per_page_num = 10  # задаем кол-во вакансий на 1 странице
+        page_num = 5  # задаем количество страниц
 
         # перебираем страницы с вакансиями
         for page in range(0, page_num):
@@ -63,6 +63,9 @@ class HeadHunterApi(Vacancies, ABC):
                     # print(vacancy)
                     self.vacancies_list.append(vacancy_dict)  # полученный словарь добавляем в список
 
+            elif len(data_out) < per_page_num:
+                break
+
             else:
                 print("В настоящий момент сайт недоступен. Попробуйте позже.")
 
@@ -95,5 +98,6 @@ class HeadHunterApi(Vacancies, ABC):
 test_1 = HeadHunterApi('python')
 test_print = test_1.get_vacancies()
 # print(test_1.vacancies_list)
-for item in test_1.vacancies_list:
-    print(item)
+print(len(test_1.vacancies_list))
+# for item in test_1.vacancies_list:
+#     print(item)
