@@ -1,0 +1,38 @@
+[
+    {
+        "id": "81780083",
+        "name": "Программист Python (Junior-Middle)",
+        "salary_from": 60000,
+        "salary_to": 100000,
+        "vacancy_url": "https://hh.ru/vacancy/81780083",
+        "description": "Поддерживать текущие автоматизации и писать ботов. Составлять Excel таблицы с макросами и сложными формулами.",
+        "experience": "От 1 года до 3 лет"
+    },
+    {
+        "id": "81639879",
+        "name": "Младший специалист отдела разработки (Python) / Специалист по парсингу данных",
+        "salary_from": null,
+        "salary_to": 70000,
+        "vacancy_url": "https://hh.ru/vacancy/81639879",
+        "description": null,
+        "experience": "От 1 года до 3 лет"
+    },
+    {
+        "id": "81857617",
+        "name": "Python Junior Developer",
+        "salary_from": null,
+        "salary_to": null,
+        "vacancy_url": "https://hh.ru/vacancy/81857617",
+        "description": "Дебагинг/рефакторинг существующего кода. Работа с API, разработка интеграций (на FastAPI и aiohttp). Написание тестов (pytest). Работа с виртуальными машинами...",
+        "experience": "От 1 года до 3 лет"
+    },
+    {
+        "id": "81442089",
+        "name": "Python Developer",
+        "salary_from": 150000,
+        "salary_to": 200000,
+        "vacancy_url": "https://hh.ru/vacancy/81442089",
+        "description": "Участие в проектировании архитектуры. Разработка CRM (back office). Разработка backend (front office). Интеграция API. Адаптация верстки для backend.",
+        "experience": "От 1 года до 3 лет"
+    }
+]
