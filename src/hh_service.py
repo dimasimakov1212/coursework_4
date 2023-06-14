@@ -15,7 +15,14 @@ class HeadHunterApi(Vacancies, ABC):
     def __init__(self, keyword):
         self.keyword = keyword  # ключевое слово, по которому ведется поиск вакансии
         self.url_api = 'https://api.hh.ru/vacancies'  # адрес запроса вакансий через API
-        self.vacancies_list = []
+        self.vacancies_list = []  # список, в который будут сохраняться вакансии по запросу
+        self.vacancy_id = None  # id вакансии
+        self.vacancy_name = None  # название вакансии
+        self.vacancy_salary_from = None  # нижний предел зарплаты
+        self.vacancy_salary_to = None  # верхний предел зарплаты
+        self.vacancy_url = None  # ссылка на вакансию
+        self.vacancy_description = None  # описание вакансии
+        self.vacancy_experience = None  # опыт работы
 
     def get_vacancies(self):
         """
@@ -71,7 +78,7 @@ test_print = test_1.get_vacancies()
 # print(test_print['items'][0]['id'])  # id вакансии
 # print(test_print['items'][0]['name'])  # название вакансии
 # print(test_print['items'][0]['salary']['from'])  # зарплата от
-# print(test_print['items'][0]['salary']['to'])  # зарплата от
+# print(test_print['items'][0]['salary']['to'])  # зарплата до
 # print(test_print['items'][0]['alternate_url'])  # ссылка на вакансию
 # print(test_print['items'][0]['snippet']['responsibility'])  # описание вакансии
 # print(test_print['items'][0]['experience']['name'])  # опыт работы
