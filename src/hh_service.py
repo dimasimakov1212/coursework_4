@@ -17,6 +17,12 @@ class HeadHunterApi(Vacancies, ABC):
         self.url_api = 'https://api.hh.ru/vacancies'  # адрес запроса вакансий через API
         self.vacancies_list = []  # список, в который будут сохраняться вакансии по запросу
 
+    def __repr__(self):
+        return f"{self.__class__.__name__}," \
+               f"{self.keyword}," \
+               f"{self.url_api}," \
+               f"{self.vacancies_list}"
+
     def get_vacancies(self):
         """
         Формирует запрос на API сайта Head Hunter для получения выборки вакансий
