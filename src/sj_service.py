@@ -9,7 +9,7 @@ import os
 import time
 
 
-from src.main import Vacancies
+from src.vacancies_control import Vacancies
 
 
 class SuperJobAPI(Vacancies, ABC):
