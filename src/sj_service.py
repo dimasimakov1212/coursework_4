@@ -34,7 +34,9 @@ class SuperJobAPI(Vacancies, ABC):
         # перебираем страницы с вакансиями
         for page in range(0, page_num):
 
+            # передаем секретный ключ для API клиента
             headers = {"X-Api-App-Id": self.s_key}
+            # формируем справочник для параметров GET-запроса
             params = {'count': per_page_num, 'page': page, 'keyword': self.keyword, 'archive': False}
 
             response = requests.get(self.url_api, params=params, headers=headers)  # Посылаем запрос к API
@@ -46,8 +48,24 @@ class SuperJobAPI(Vacancies, ABC):
 
                 data_out = json.loads(data_in)  # преобразуем полученные данные из формата json
 
-                for item in data_out['objects']:
-                    print(item)
+                # полученные вакансии складываем в словарь и добавляем его в список
+                for vacancy in data_out['objects']:
+                    # запускаем метод формирования словаря
+                    vacancy_dict = SuperJobAPI.get_vacancy_dict(vacancy)
+
+                    # print(vacancy)
+                    self.vacancies_list.append(vacancy_dict)  # полученный словарь добавляем в список
+
+            elif len(data_out) < per_page_num:
+                break
+
+            else:
+                print("В настоящий момент сайт недоступен. Попробуйте позже.")
+
+            time.sleep(0.2)  # временная задержка во избежание блокировки большого количества запросов
+
+        return self.vacancies_list
+
 
     @classmethod
     def get_vacancy_dict(cls, vacancy):
@@ -70,3 +88,6 @@ class SuperJobAPI(Vacancies, ABC):
 
 test_1 = SuperJobAPI('python')
 test_print = test_1.get_vacancies()
+
+for item in test_1.vacancies_list:
+    print(item)
