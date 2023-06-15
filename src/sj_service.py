@@ -20,3 +20,15 @@ class SuperJobAPI(Vacancies, ABC):
         self.keyword = keyword  # ключевое слово, по которому ведется поиск вакансии
         self.url_api = 'https://api.superjob.ru/2.0/vacancies'  # адрес запроса вакансий через API
         self.vacancies_list = []  # список, в который будут сохраняться вакансии по запросу
+        self.s_key = "v3.r.137614806.f1965cb543def5c60782496be7a7ebc821b88608.5aaca3901c30bd49f51e0eebff148e7a02ac878d"
+
+    def get_vacancies(self):
+        """
+        Формирует запрос на API сайта Head Hunter для получения выборки вакансий
+        по ключевому слову
+        :return: список вакансий по запросу
+        """
+        headers = {"X-Api-App-Id": self.s_key}
+        params = {'count': 100, 'page': None, 'keyword': self.keyword, 'archive': False}
+
+        response = requests.get(self.url_api, params=params, headers=headers)  # Посылаем запрос к API
