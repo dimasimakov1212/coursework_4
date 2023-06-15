@@ -8,3 +8,10 @@ class Vacancies(ABC):
     @abstractmethod
     def get_vacancies(self):
         pass
+
+
+class VacanciesControl:
+    """
+    Класс позволяет работать с полученными вакансиями
+    """
+    pass
