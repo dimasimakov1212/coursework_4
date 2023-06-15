@@ -28,20 +28,44 @@ class SuperJobAPI(Vacancies, ABC):
         по ключевому слову
         :return: список вакансий по запросу
         """
-        headers = {"X-Api-App-Id": self.s_key}
-        params = {'count': 5, 'page': 0, 'keyword': self.keyword, 'archive': False}
+        per_page_num = 2  # задаем кол-во вакансий на 1 странице
+        page_num = 2  # задаем количество страниц
 
-        response = requests.get(self.url_api, params=params, headers=headers)  # Посылаем запрос к API
+        # перебираем страницы с вакансиями
+        for page in range(0, page_num):
 
-        data_in = response.content.decode()  # Декодируем ответ API, чтобы Кириллица отображалась корректно
-        response.close()
+            headers = {"X-Api-App-Id": self.s_key}
+            params = {'count': per_page_num, 'page': page, 'keyword': self.keyword, 'archive': False}
 
-        data_out = json.loads(data_in)
+            response = requests.get(self.url_api, params=params, headers=headers)  # Посылаем запрос к API
 
-        for item in data_out['objects']:
-            print(item)
+            if response.status_code == 200:  # проверяем на корректность ответа
 
-        # print(data_out)
+                data_in = response.content.decode()  # Декодируем ответ API, чтобы Кириллица отображалась корректно
+                response.close()
+
+                data_out = json.loads(data_in)  # преобразуем полученные данные из формата json
+
+                for item in data_out['objects']:
+                    print(item)
+
+    @classmethod
+    def get_vacancy_dict(cls, vacancy):
+        """
+        Формирует словарь с необходимыми данными о вакансии из словаря, полученного по API
+        :return:
+        """
+        vacancy_dict = {}  # словарь для данных о вакансии
+
+        vacancy_dict['id'] = vacancy['id']  # id вакансии
+        vacancy_dict['name'] = vacancy['profession']  # название вакансии
+        vacancy_dict['salary_from'] = vacancy['payment_from']  # нижний предел зарплаты
+        vacancy_dict['salary_to'] = vacancy['payment_to']  # верхний предел зарплаты
+        vacancy_dict['vacancy_url'] = vacancy['link']  # ссылка на вакансию
+        vacancy_dict['description'] = vacancy['vacancyRichText']  # описание вакансии
+        vacancy_dict['experience'] = vacancy['experience']['title']  # требуемый опыт работы
+
+        return vacancy_dict
 
 
 test_1 = SuperJobAPI('python')
