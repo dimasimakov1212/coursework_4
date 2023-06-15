@@ -20,7 +20,14 @@ class SuperJobAPI(Vacancies, ABC):
         self.keyword = keyword  # ключевое слово, по которому ведется поиск вакансии
         self.url_api = 'https://api.superjob.ru/2.0/vacancies'  # адрес запроса вакансий через API
         self.vacancies_list = []  # список, в который будут сохраняться вакансии по запросу
+        # Secret key
         self.s_key = "v3.r.137614806.f1965cb543def5c60782496be7a7ebc821b88608.5aaca3901c30bd49f51e0eebff148e7a02ac878d"
+
+    def __repr__(self):
+        return f"{self.__class__.__name__}," \
+               f"{self.keyword}," \
+               f"{self.url_api}," \
+               f"{self.vacancies_list}"
 
     def get_vacancies(self):
         """
