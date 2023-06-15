@@ -51,7 +51,7 @@ class HeadHunterApi(Vacancies, ABC):
 
             # req = requests.get(self.url, params)  # Посылаем запрос к API без headers
 
-            req = requests.get(self.url_api, params, headers=headers)  # Посылаем запрос к API
+            req = requests.get(self.url_api, params=params, headers=headers)  # Посылаем запрос к API
 
             if req.status_code == 200:  # проверяем на корректность ответа
 
@@ -64,7 +64,7 @@ class HeadHunterApi(Vacancies, ABC):
                 for vacancy in data_out['items']:
 
                     # запускаем метод формирования словаря
-                    vacancy_dict = HeadHunterApi.get_vacancy_dict(self, vacancy)
+                    vacancy_dict = HeadHunterApi.get_vacancy_dict(vacancy)
 
                     # print(vacancy)
                     self.vacancies_list.append(vacancy_dict)  # полученный словарь добавляем в список
@@ -79,7 +79,8 @@ class HeadHunterApi(Vacancies, ABC):
 
         return self.vacancies_list
 
-    def get_vacancy_dict(self, vacancy):
+    @classmethod
+    def get_vacancy_dict(cls, vacancy):
         """
         Формирует словарь с необходимыми данными о вакансии из словаря, полученного по API
         :return:

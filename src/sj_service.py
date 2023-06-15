@@ -29,6 +29,20 @@ class SuperJobAPI(Vacancies, ABC):
         :return: список вакансий по запросу
         """
         headers = {"X-Api-App-Id": self.s_key}
-        params = {'count': 100, 'page': None, 'keyword': self.keyword, 'archive': False}
+        params = {'count': 5, 'page': 0, 'keyword': self.keyword, 'archive': False}
 
         response = requests.get(self.url_api, params=params, headers=headers)  # Посылаем запрос к API
+
+        data_in = response.content.decode()  # Декодируем ответ API, чтобы Кириллица отображалась корректно
+        response.close()
+
+        data_out = json.loads(data_in)
+
+        for item in data_out['objects']:
+            print(item)
+
+        # print(data_out)
+
+
+test_1 = SuperJobAPI('python')
+test_print = test_1.get_vacancies()
