@@ -16,17 +16,17 @@ def general_function():
                               "2 - SuperJob\n"
                               "3 - совместный поиск\n"))
 
-    search_text = input('Введите поисковый запрос (например, "python"\n')
+    search_text = input('Введите поисковый запрос (например, "python")\n')
 
     if choice_portal == 1:
         # инициализируем поиск вакансий на HeadHunter по поисковому запросу
         hh_list = get_hh_vacancies(search_text)
-        print(hh_list)
+        print(f"Получено {len(hh_list)} вакансий")
 
     if choice_portal == 2:
         # инициализируем поиск вакансий на SuperJob по поисковому запросу
         sj_list = get_sj_vacancies(search_text)
-        print(sj_list)
+        print(f"Получено {len(sj_list)} вакансий")
 
     if choice_portal == 3:
         # инициализируем поиск вакансий на Head Hunter и SuperJob по поисковому запросу
@@ -35,7 +35,7 @@ def general_function():
 
         # получаем общий список
         hh_sj_list = get_mixed_vacancies(hh_list, sj_list)
-        print(len(hh_sj_list))
+        print(f"Получено {len(hh_sj_list)} вакансий")
 
 
 def get_hh_vacancies(search_text):
