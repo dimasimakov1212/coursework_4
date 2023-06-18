@@ -9,17 +9,17 @@ def general_function():
     """
 
     print("Программа предоставляет возможностьпоиска вакансий"
-          "на порталах Head Hunter и Super Job")
+          "на порталах HeadHunter и SuperJob")
 
     choice_portal = int(input("Выберите место поиска вакансий:\n"
-                              "1 - Head Hunter\n"
-                              "2 - Super Job\n"
+                              "1 - HeadHunter\n"
+                              "2 - SuperJob\n"
                               "3 - совместный поиск\n"))
 
     search_text = input('Введите поисковый запрос (например, "python"\n')
 
     if choice_portal == 1:
-        # инициализируем поиск вакансий на Head Hunter по поисковому запросу
+        # инициализируем поиск вакансий на HeadHunter по поисковому запросу
         hh_list = get_hh_vacancies(search_text)
         print(hh_list)
 
@@ -28,13 +28,22 @@ def general_function():
         sj_list = get_sj_vacancies(search_text)
         print(sj_list)
 
+    if choice_portal == 3:
+        # инициализируем поиск вакансий на Head Hunter и SuperJob по поисковому запросу
+        hh_list = get_hh_vacancies(search_text)
+        sj_list = get_sj_vacancies(search_text)
+
+        # получаем общий список
+        hh_sj_list = get_mixed_vacancies(hh_list, sj_list)
+        print(len(hh_sj_list))
+
 
 def get_hh_vacancies(search_text):
     """
-    Получает список вакансий с Head Hunter
+    Получает список вакансий с HeadHunter
     :return:
     """
-    get_hh_list = HeadHunterApi(search_text)
+    get_hh_list = HeadHunterApi(search_text)  # инициализируем экземпляр класса
 
     get_hh_list.get_vacancies()  # получаем список вакансий с сайта в формате json
 
@@ -48,7 +57,7 @@ def get_sj_vacancies(search_text):
     Получает список вакансий с SuperJob
     :return:
     """
-    get_sj_list = SuperJobAPI(search_text)
+    get_sj_list = SuperJobAPI(search_text)  # инициализируем экземпляр класса
 
     get_sj_list.get_vacancies()  # получаем список вакансий с сайта в формате json
 
