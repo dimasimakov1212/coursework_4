@@ -59,6 +59,7 @@ class HeadHunterApi(Vacancies, ABC):
                 req.close()
 
                 data_out = json.loads(data_in)  # преобразуем полученные данные из формата json
+                print(data_out)
 
                 # полученные вакансии складываем в словарь и добавляем его в список
                 for vacancy in data_out['items']:
@@ -95,6 +96,8 @@ class HeadHunterApi(Vacancies, ABC):
         else:
             vacancy_dict['salary_from'] = None
             vacancy_dict['salary_to'] = None
+        vacancy_dict['currency'] = vacancy['salary']['currency']  # валюта зарплаты
+        vacancy_dict['employer'] = vacancy['employer']['name']  # наименование работодателя
         vacancy_dict['vacancy_url'] = vacancy['alternate_url']  # ссылка на вакансию
         vacancy_dict['description'] = vacancy['snippet']['responsibility']  # описание вакансии
         vacancy_dict['experience'] = vacancy['experience']['name']  # требуемый опыт работы
@@ -111,5 +114,5 @@ a = test_1.vacancies_list
 # for item in test_1.vacancies_list:
 #     print(item)
 
-with open('test.json', 'w') as file:
-    json.dump(a, file, sort_keys=False, indent=4, ensure_ascii=False)
+# with open('test.json', 'w') as file:
+#     json.dump(a, file, sort_keys=False, indent=4, ensure_ascii=False)
