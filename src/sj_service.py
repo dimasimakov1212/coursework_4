@@ -96,8 +96,8 @@ class SuperJobAPI(Vacancies, ABC):
         return vacancy_dict
 
 
-test_1 = SuperJobAPI('python')
-test_print = test_1.get_vacancies()
-
-for item in test_1.vacancies_list:
-    print(item)
+# test_1 = SuperJobAPI('python')
+# test_print = test_1.get_vacancies()
+#
+# for item in test_1.vacancies_list:
+#     print(item)

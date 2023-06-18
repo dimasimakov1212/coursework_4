@@ -23,7 +23,7 @@ class HeadHunterApi(Vacancies, ABC):
                f"{self.url_api}," \
                f"{self.vacancies_list}"
 
-    def get_vacancies_hh(self):
+    def get_vacancies(self):
         """
         Формирует запрос на API сайта Head Hunter для получения выборки вакансий
         по ключевому слову
@@ -106,14 +106,14 @@ class HeadHunterApi(Vacancies, ABC):
         return vacancy_dict
 
 
-test_1 = HeadHunterApi('python')
-test_print = test_1.get_vacancies_hh()
-a = test_1.vacancies_list
-# print(test_1.vacancies_list)
-# print(len(test_1.vacancies_list))
-
-for item in test_1.vacancies_list:
-    print(item)
+# test_1 = HeadHunterApi('python')
+# test_print = test_1.get_vacancies_hh()
+# a = test_1.vacancies_list
+# # print(test_1.vacancies_list)
+# # print(len(test_1.vacancies_list))
+#
+# for item in test_1.vacancies_list:
+#     print(item)
 
 # with open('test.json', 'w') as file:
 #     json.dump(a, file, sort_keys=False, indent=4, ensure_ascii=False)
