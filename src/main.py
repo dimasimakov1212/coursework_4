@@ -21,12 +21,12 @@ def general_function():
     if choice_portal == 1:
         # инициализируем поиск вакансий на Head Hunter по поисковому запросу
         hh_list = get_hh_vacancies(search_text)
-        return print(hh_list)
+        print(hh_list)
 
     if choice_portal == 2:
-        # инициализируем поиск вакансий на Super Job по поисковому запросу
+        # инициализируем поиск вакансий на SuperJob по поисковому запросу
         sj_list = get_sj_vacancies(search_text)
-        return print(sj_list)
+        print(sj_list)
 
 
 def get_hh_vacancies(search_text):
@@ -55,6 +55,20 @@ def get_sj_vacancies(search_text):
     sj_list_out = get_sj_list.vacancies_list  # получаем преобразованный список
 
     return sj_list_out
+
+
+def get_mixed_vacancies(list_1, list_2):
+    """
+    Собирает общий список вакансий,
+    если пользователь выбирает совместный поиск по двум сайтам
+    :param list_1:
+    :param list_2:
+    :return:
+    """
+    for item in list_2:
+        list_1.append(item)
+
+    return list_1
 
 
 if __name__ == '__main__':
