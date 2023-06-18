@@ -14,4 +14,7 @@ class VacanciesControl:
     """
     Класс позволяет работать с полученными вакансиями
     """
-    pass
+    def __init__(self, vacancies_all):
+        self.vacancies_all = vacancies_all
+
+        pass
