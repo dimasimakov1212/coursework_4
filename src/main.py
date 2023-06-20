@@ -8,9 +8,19 @@ def general_function():
     :return:
     """
 
-    print("Программа предоставляет возможностьпоиска вакансий"
+    print("Программа предоставляет возможность поиска вакансий"
           "на порталах HeadHunter и SuperJob")
 
+    new_data = choice_vacancies_portal()
+
+    print("Полученный список вакансий можно отсортировать по зарплате и вывести топ вакансий на экран")
+
+
+def choice_vacancies_portal():
+    """
+    Позволяет выбрать портал для поиска вакансий и задать поисковый запрос
+    :return:
+    """
     choice_portal = int(input("Выберите место поиска вакансий:\n"
                               "1 - HeadHunter\n"
                               "2 - SuperJob\n"
@@ -22,11 +32,13 @@ def general_function():
         # инициализируем поиск вакансий на HeadHunter по поисковому запросу
         hh_list = get_hh_vacancies(search_text)
         print(f"Получено {len(hh_list)} вакансий")
+        return hh_list
 
     if choice_portal == 2:
         # инициализируем поиск вакансий на SuperJob по поисковому запросу
         sj_list = get_sj_vacancies(search_text)
         print(f"Получено {len(sj_list)} вакансий")
+        return sj_list
 
     if choice_portal == 3:
         # инициализируем поиск вакансий на Head Hunter и SuperJob по поисковому запросу
@@ -36,6 +48,7 @@ def general_function():
         # получаем общий список
         hh_sj_list = get_mixed_vacancies(hh_list, sj_list)
         print(f"Получено {len(hh_sj_list)} вакансий")
+        return hh_sj_list
 
 
 def get_hh_vacancies(search_text):
