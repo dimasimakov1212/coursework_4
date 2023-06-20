@@ -7,13 +7,32 @@ def general_function():
     Запускает основное тело программы
     :return:
     """
+    start_menu()
 
-    print("Программа предоставляет возможность поиска вакансий"
-          "на порталах HeadHunter и SuperJob")
-
-    new_data = choice_vacancies_portal()
 
     print("Полученный список вакансий можно отсортировать по зарплате и вывести топ вакансий на экран")
+
+
+def start_menu():
+    """
+    Стартовое меню навигации по программе
+    :return:
+    """
+    print("-------------------------------------")
+    print("Выберите необходимое действие:\n")
+    start_point = int(input("1 - запуск поиска вакансий\n"
+                            "2 - сортировка списка вакансий\n"
+                            "3 - редактирование списка вакансий\n"
+                            "4 - выход из программы\n"))
+
+    if start_point == 1:
+        choice_vacancies_portal()
+
+    if start_point == 2:
+        s = 0
+
+    if start_point == 4:
+        print("Программа завершила работу")
 
 
 def choice_vacancies_portal():
@@ -94,4 +113,6 @@ def get_mixed_vacancies(list_1, list_2):
 
 
 if __name__ == '__main__':
+    print("Программа предоставляет возможность поиска вакансий"
+          "на порталах HeadHunter и SuperJob")
     general_function()
