@@ -1,38 +1,26 @@
 [
     {
-        "id": "81780083",
-        "name": "Программист Python (Junior-Middle)",
-        "salary_from": 60000,
-        "salary_to": 100000,
-        "vacancy_url": "https://hh.ru/vacancy/81780083",
-        "description": "Поддерживать текущие автоматизации и писать ботов. Составлять Excel таблицы с макросами и сложными формулами.",
-        "experience": "От 1 года до 3 лет"
+        "salary_to": 500,
+        "id": 125
     },
     {
-        "id": "81639879",
-        "name": "Младший специалист отдела разработки (Python) / Специалист по парсингу данных",
-        "salary_from": null,
-        "salary_to": 70000,
-        "vacancy_url": "https://hh.ru/vacancy/81639879",
-        "description": null,
-        "experience": "От 1 года до 3 лет"
+        "salary_to": 1000,
+        "id": 356
     },
     {
-        "id": "81657212",
-        "name": "Разработчик Python",
-        "salary_from": 150000,
-        "salary_to": null,
-        "vacancy_url": "https://hh.ru/vacancy/81657212",
-        "description": "Разработка новых и рефакторинг уже существующих микросервисов (у нас много легаси!). Сопровождение и документирование написанного кода. Взаимодействие с мобильными разработчиками...",
-        "experience": "От 1 года до 3 лет"
+        "salary_to": 200,
+        "id": 7854
     },
     {
-        "id": "81442089",
-        "name": "Python Developer",
-        "salary_from": 150000,
-        "salary_to": 200000,
-        "vacancy_url": "https://hh.ru/vacancy/81442089",
-        "description": "Участие в проектировании архитектуры. Разработка CRM (back office). Разработка backend (front office). Интеграция API. Адаптация верстки для backend.",
-        "experience": "От 1 года до 3 лет"
+        "salary_to": 500,
+        "id": 125
+    },
+    {
+        "salary_to": 1000,
+        "id": 356
+    },
+    {
+        "salary_to": 200,
+        "id": 7854
     }
 ]

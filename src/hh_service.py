@@ -106,10 +106,10 @@ class HeadHunterApi(Vacancies, ABC):
         return vacancy_dict
 
 
-test_1 = HeadHunterApi('python')
-test_1.get_vacancies()
-a = test_1.vacancies_list
-print(a)
+# test_1 = HeadHunterApi('python')
+# test_1.get_vacancies()
+# a = test_1.vacancies_list
+# print(a)
 # # print(len(test_1.vacancies_list))
 #
 # for item in test_1.vacancies_list:

@@ -43,6 +43,8 @@ def start_menu():
         end_program()
 
 
+
+
 def choice_vacancies_portal():
     """
     Позволяет выбрать портал для поиска вакансий и задать поисковый запрос
@@ -126,6 +128,6 @@ def end_program():
 
 
 if __name__ == '__main__':
-    print("Программа предоставляет возможность поиска вакансий"
+    print("Программа предоставляет возможность поиска вакансий "
           "на порталах HeadHunter и SuperJob")
     general_function(True)
