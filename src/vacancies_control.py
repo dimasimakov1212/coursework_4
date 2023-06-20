@@ -41,6 +41,15 @@ class VacanciesControl:
     def __len__(self):
         return len(self.vacancies_all)
 
+    # @classmethod
+    def vacancy_sort_menu(self):
+        """
+        
+        :return:
+        """
+        if self.vacancies_all != 0:
+            print(self.vacancies_all)
+
     def vacancy_sort_by_salary_to(self):
         """
         Сортирует вакансии по максимальной зарплате
@@ -102,8 +111,8 @@ class VacanciesControl:
         return data_1
 
 
-b = [{'salary_to': 500, 'id': 125}, {'salary_to': 1000, 'id': 356}, {'salary_to': 200, 'id': 7854}]
-a = VacanciesControl(b)
+# b = [{'salary_to': 500, 'id': 125}, {'salary_to': 1000, 'id': 356}, {'salary_to': 200, 'id': 7854}]
+# a = VacanciesControl(b)
 # c = a.vacancy_sort_by_salary_to()
 # print(c)
-a.write_to_file_menu()
+# a.write_to_file_menu()
