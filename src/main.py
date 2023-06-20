@@ -1,16 +1,19 @@
 from src.hh_service import HeadHunterApi
 from src.sj_service import SuperJobAPI
+from src.vacancies_control import VacanciesControl
 
 
-def general_function():
+def general_function(check_point):
     """
     Запускает основное тело программы
     :return:
     """
-    start_menu()
+
+    if check_point:
+        start_menu()
 
 
-    print("Полученный список вакансий можно отсортировать по зарплате и вывести топ вакансий на экран")
+    # print("Полученный список вакансий можно отсортировать по зарплате и вывести топ вакансий на экран")
 
 
 def start_menu():
@@ -18,6 +21,7 @@ def start_menu():
     Стартовое меню навигации по программе
     :return:
     """
+
     print("-------------------------------------")
     print("Выберите необходимое действие:\n")
     start_point = int(input("1 - запуск поиска вакансий\n"
@@ -26,13 +30,17 @@ def start_menu():
                             "4 - выход из программы\n"))
 
     if start_point == 1:
-        choice_vacancies_portal()
+        list_in = choice_vacancies_portal()
+        list_out = VacanciesControl(list_in)
 
     if start_point == 2:
-        s = 0
+        if VacanciesControl.list_count == 0:
+            print("Список пуст, запустите поиск вакансий")
+            general_function(True)
+
 
     if start_point == 4:
-        print("Программа завершила работу")
+        end_program()
 
 
 def choice_vacancies_portal():
@@ -112,7 +120,12 @@ def get_mixed_vacancies(list_1, list_2):
     return list_1
 
 
+def end_program():
+    print("Программа завершила работу")
+    general_function(False)
+
+
 if __name__ == '__main__':
     print("Программа предоставляет возможность поиска вакансий"
           "на порталах HeadHunter и SuperJob")
-    general_function()
+    general_function(True)
