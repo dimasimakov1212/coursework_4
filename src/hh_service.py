@@ -106,14 +106,14 @@ class HeadHunterApi(Vacancies, ABC):
         return vacancy_dict
 
 
-# test_1 = HeadHunterApi('python')
-# test_print = test_1.get_vacancies_hh()
-# a = test_1.vacancies_list
-# # print(test_1.vacancies_list)
+test_1 = HeadHunterApi('python')
+test_1.get_vacancies()
+a = test_1.vacancies_list
+print(a)
 # # print(len(test_1.vacancies_list))
 #
 # for item in test_1.vacancies_list:
 #     print(item)
 
-# with open('test.json', 'w') as file:
+# with open('vacancies.json', 'w') as file:
 #     json.dump(a, file, sort_keys=False, indent=4, ensure_ascii=False)
