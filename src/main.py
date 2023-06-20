@@ -34,7 +34,7 @@ def start_menu():
         list_out = VacanciesControl(list_in)
 
     if start_point == 2:
-        if VacanciesControl.list_count == 0:
+        if VacanciesControl.vacancies_all == 0:
             print("Список пуст, запустите поиск вакансий")
             general_function(True)
 

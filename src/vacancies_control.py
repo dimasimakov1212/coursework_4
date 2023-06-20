@@ -62,8 +62,10 @@ class VacanciesControl:
                       "2 - добавить данные к существующим")
                 file_action = int(input())
 
+                # перезаписывает данные о вакансиях
                 if file_action == 1:
                     VacanciesControl.writing_json(self)
+                    print(f"Файл содержит {len(self.vacancies_all)} вакансий")
 
                 # считывается содержимое файла и добавляется в список вакансий
                 if file_action == 2:
@@ -72,10 +74,12 @@ class VacanciesControl:
                         self.vacancies_all.append(item)
 
                     VacanciesControl.writing_json(self)
+                    print(f"Файл содержит {len(self.vacancies_all)} вакансий")
 
             # если файл пустой записываем данные
             else:
                 VacanciesControl.writing_json(self)
+                print(f"Файл содержит {len(self.vacancies_all)} вакансий")
 
         except OSError:
             print("Файл не найден")
