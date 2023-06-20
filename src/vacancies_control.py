@@ -49,35 +49,57 @@ class VacanciesControl:
         self.vacancies_all = sorted(self.vacancies_all, key=lambda k: k['salary_to'], reverse=True)
         return self.vacancies_all
 
-    def write_to_file(self):
+    def write_to_file_menu(self):
+        """
+        Записывает список вакансий в файл
+        :return:
+        """
+        # проверяем пустой файл или нет
         try:
             if os.stat(self.file_data).st_size > 0:
                 print("Файл содержит данные. Что необходимо сделать?:\n"
                       "1 - перезаписать данные\n"
-                      "2 - добавить данные к существующим\n")
+                      "2 - добавить данные к существующим")
                 file_action = int(input())
 
                 if file_action == 1:
-                    with open(self.file_data, 'w') as file:
-                        json.dump(self.vacancies_all, file, sort_keys=False, indent=4, ensure_ascii=False)
+                    VacanciesControl.writing_json(self)
 
+                # считывается содержимое файла и добавляется в список вакансий
                 if file_action == 2:
-                    with open(self.file_data, 'r') as file:
-                        data_1 = json.load(file)
-                        for item in data_1:
-                            self.vacancies_all.append(item)
-                    with open(self.file_data, 'w') as file:
-                        json.dump(self.vacancies_all, file, sort_keys=False, indent=4, ensure_ascii=False)
+                    data_1 = VacanciesControl.reading_json(self)
+                    for item in data_1:
+                        self.vacancies_all.append(item)
 
+                    VacanciesControl.writing_json(self)
+
+            # если файл пустой записываем данные
             else:
-                with open(self.file_data, 'w') as file:
-                    json.dump(self.vacancies_all, file, sort_keys=False, indent=4, ensure_ascii=False)
+                VacanciesControl.writing_json(self)
+
         except OSError:
             print("Файл не найден")
+
+    def writing_json(self):
+        """
+        Записывает данные в формате json
+        :return:
+        """
+        with open(self.file_data, 'w') as file:
+            json.dump(self.vacancies_all, file, sort_keys=False, indent=4, ensure_ascii=False)
+
+    def reading_json(self):
+        """
+        Считывает данные из формата json
+        :return:
+        """
+        with open(self.file_data, 'r') as file:
+            data_1 = json.load(file)
+        return data_1
 
 
 b = [{'salary_to': 500, 'id': 125}, {'salary_to': 1000, 'id': 356}, {'salary_to': 200, 'id': 7854}]
 a = VacanciesControl(b)
 # c = a.vacancy_sort_by_salary_to()
 # print(c)
-a.write_to_file()
+a.write_to_file_menu()
