@@ -32,12 +32,12 @@ def start_menu():
     if start_point == 1:
         list_in = choice_vacancies_portal()
         list_out = VacanciesControl(list_in)
-        VacanciesControl.vacancy_sort_menu(list_out)
+        VacanciesControl.vacancy_start_menu(list_out)
 
     if start_point == 2:
         list_in = []
-        list_out = VacanciesControl(list_in)
-        VacanciesControl.vacancy_sort_menu(list_out)
+        # list_out = VacanciesControl(list_in)
+        # VacanciesControl.vacancy_sort_menu(list_out)
 
         # print("Список пуст, запустите поиск вакансий")
         # general_function(True)

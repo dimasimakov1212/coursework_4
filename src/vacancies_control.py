@@ -41,8 +41,7 @@ class VacanciesControl:
     def __len__(self):
         return len(self.vacancies_all)
 
-    # @classmethod
-    def vacancy_sort_menu(self):
+    def vacancy_start_menu(self):
         """
         
         :return:
