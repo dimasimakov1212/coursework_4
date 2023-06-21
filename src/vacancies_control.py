@@ -1,6 +1,7 @@
 import json
 from abc import ABC, abstractmethod
 import os
+from src.main import general_function
 
 
 class Vacancies(ABC):
@@ -47,10 +48,30 @@ class VacanciesControl:
         :return:
         """
         print("Полученный список вакансий можно отсортировать по зарплате и вывести топ вакансий на экран")
-        top_list = int(input("Введите количество вакансий выводимых на экран\n"))
+        top_list_num = int(input("Введите количество вакансий выводимых на экран\n"))
         choice_sort = int(input("Выберите вариант сортировки:\n"
                                 "1 - по максимальной зарплате (иногда ее не указывают в вакансиях)\n"
                                 "2 - по минимальной зарплате\n"))
+
+        if choice_sort == 1:
+            top_list = VacanciesControl.vacancy_sort_by_salary_to(self)
+            VacanciesControl.print_top_to_screen(self, top_list, top_list_num)
+
+        if choice_sort == 2:
+            top_list = VacanciesControl.vacancy_sort_by_salary_from(self)
+            VacanciesControl.print_top_to_screen(self, top_list, top_list_num)
+
+    def print_top_to_screen(self, list_in, num_vacancy):
+        """
+        Выводит на экран топ вакансий
+        :return:
+        """
+        for item in range(0, num_vacancy):
+            print(f"{list_in[item]['name']}\n"
+                  f"{list_in[item]['salary_from']} {list_in[item]['currency']}\n"
+                  f"{list_in[item]['salary_to']} {list_in[item]['currency']}\n"
+                  f"{list_in[item]['employer']}\n"
+                  f"{list_in[item]['vacancy_url']}\n")
 
     def vacancy_sort_by_salary_to(self):
         """
@@ -58,6 +79,14 @@ class VacanciesControl:
         :return:
         """
         self.vacancies_all = sorted(self.vacancies_all, key=lambda k: k['salary_to'], reverse=True)
+        return self.vacancies_all
+
+    def vacancy_sort_by_salary_from(self):
+        """
+        Сортирует вакансии по минимальной зарплате
+        :return:
+        """
+        self.vacancies_all = sorted(self.vacancies_all, key=lambda k: k['salary_from'], reverse=True)
         return self.vacancies_all
 
     def write_to_file_menu(self):
