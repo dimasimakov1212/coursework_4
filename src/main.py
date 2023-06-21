@@ -64,13 +64,15 @@ def choice_vacancies_portal():
     if choice_portal == 1:
         # инициализируем поиск вакансий на HeadHunter по поисковому запросу
         hh_list = get_hh_vacancies(search_text)
-        print(f"Получено {len(hh_list)} вакансий")
+        print(f"Получено {len(hh_list)} вакансий\n"
+              f"-------------------------------------")
         return hh_list
 
     if choice_portal == 2:
         # инициализируем поиск вакансий на SuperJob по поисковому запросу
         sj_list = get_sj_vacancies(search_text)
-        print(f"Получено {len(sj_list)} вакансий")
+        print(f"Получено {len(sj_list)} вакансий\n"
+              f"-------------------------------------")
         return sj_list
 
     if choice_portal == 3:
@@ -80,7 +82,8 @@ def choice_vacancies_portal():
 
         # получаем общий список
         hh_sj_list = get_mixed_vacancies(hh_list, sj_list)
-        print(f"Получено {len(hh_sj_list)} вакансий")
+        print(f"Получено {len(hh_sj_list)} вакансий\n"
+              f"-------------------------------------")
         return hh_sj_list
 
 
