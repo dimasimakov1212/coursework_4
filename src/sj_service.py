@@ -21,7 +21,9 @@ class SuperJobAPI(Vacancies, ABC):
         self.url_api = 'https://api.superjob.ru/2.0/vacancies'  # адрес запроса вакансий через API
         self.vacancies_list = []  # список, в который будут сохраняться вакансии по запросу
         # Secret key
-        self.s_key = "v3.r.137614806.f1965cb543def5c60782496be7a7ebc821b88608.5aaca3901c30bd49f51e0eebff148e7a02ac878d"
+        # self.api_key = "v3.r.137614806.f1965cb543def5c60782496be7a7ebc821b88608.5aaca3901c30bd49f51e0eebff148e7a02ac878d"
+        # api_key: str = os.getenv('SJ_API_KEY')
+        # self.api_key = api_key
 
     def __repr__(self):
         return f"{self.__class__.__name__}," \
@@ -35,14 +37,16 @@ class SuperJobAPI(Vacancies, ABC):
         по ключевому слову
         :return: список вакансий по запросу
         """
+
         per_page_num = 2  # задаем кол-во вакансий на 1 странице
         page_num = 2  # задаем количество страниц
+        api_key: str = os.getenv('SJ_API_KEY')
 
         # перебираем страницы с вакансиями
         for page in range(0, page_num):
 
             # передаем секретный ключ для API клиента
-            headers = {"X-Api-App-Id": self.s_key}
+            headers = {"X-Api-App-Id": api_key}
             # формируем справочник для параметров GET-запроса
             params = {'count': per_page_num, 'page': page, 'keyword': self.keyword, 'archive': False}
 
@@ -64,8 +68,8 @@ class SuperJobAPI(Vacancies, ABC):
                     # print(vacancy)
                     self.vacancies_list.append(vacancy_dict)  # полученный словарь добавляем в список
 
-            elif len(data_out) < per_page_num:  # проверка на наличие вакансий
-                break
+                if len(data_out) < per_page_num:  # проверка на наличие вакансий
+                    break
 
             else:
                 print("В настоящий момент сайт недоступен. Попробуйте позже.")
@@ -96,8 +100,9 @@ class SuperJobAPI(Vacancies, ABC):
         return vacancy_dict
 
 
-# test_1 = SuperJobAPI('python')
-# test_print = test_1.get_vacancies()
-#
-# for item in test_1.vacancies_list:
-#     print(item)
+test_1 = SuperJobAPI('python')
+test_print = test_1.get_vacancies()
+
+for item in test_1.vacancies_list:
+    print(item)
+
