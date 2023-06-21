@@ -91,13 +91,24 @@ class HeadHunterApi(Vacancies, ABC):
         vacancy_dict['id'] = vacancy['id']  # id вакансии
         vacancy_dict['name'] = vacancy['name']  # название вакансии
         if vacancy['salary']:
-            vacancy_dict['salary_from'] = vacancy['salary']['from']  # нижний предел зарплаты
-            vacancy_dict['salary_to'] = vacancy['salary']['to']  # верхний предел зарплаты
-            vacancy_dict['currency'] = vacancy['salary']['currency']  # валюта зарплаты
+            if vacancy['salary']['from'] is None:  # проверяем наличие данных
+                vacancy_dict['salary_from'] = 0
+            else:
+                vacancy_dict['salary_from'] = vacancy['salary']['from']  # нижний предел зарплаты
+
+            if vacancy['salary']['to'] is None:  # проверяем наличие данных
+                vacancy_dict['salary_to'] = 0
+            else:
+                vacancy_dict['salary_to'] = vacancy['salary']['to']  # верхний предел зарплаты
+
+            if vacancy['salary']['currency'] is None:  # проверяем наличие данных
+                vacancy_dict['currency'] = 'RUR'
+            else:
+                vacancy_dict['currency'] = vacancy['salary']['currency']  # валюта зарплаты
         else:
-            vacancy_dict['salary_from'] = None
-            vacancy_dict['salary_to'] = None
-            vacancy_dict['currency'] = None
+            vacancy_dict['salary_from'] = 0
+            vacancy_dict['salary_to'] = 0
+            vacancy_dict['currency'] = 'RUR'
         vacancy_dict['employer'] = vacancy['employer']['name']  # наименование работодателя
         vacancy_dict['vacancy_url'] = vacancy['alternate_url']  # ссылка на вакансию
         vacancy_dict['description'] = vacancy['snippet']['responsibility']  # описание вакансии
@@ -109,8 +120,6 @@ class HeadHunterApi(Vacancies, ABC):
 # test_1 = HeadHunterApi('python')
 # test_1.get_vacancies()
 # a = test_1.vacancies_list
-# print(a)
-# # print(len(test_1.vacancies_list))
 #
 # for item in test_1.vacancies_list:
 #     print(item)

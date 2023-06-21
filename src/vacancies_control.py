@@ -1,7 +1,7 @@
 import json
 from abc import ABC, abstractmethod
 import os
-from src.main import general_function
+# from src.main import general_function
 
 
 class Vacancies(ABC):
@@ -142,7 +142,7 @@ class VacanciesControl:
         return data_1
 
 
-# b = [{'salary_to': 500, 'id': 125}, {'salary_to': 1000, 'id': 356}, {'salary_to': 200, 'id': 7854}]
+# b = [{'salary_to': '500', 'id': 125}, {'salary_to': 0, 'id': 356}, {'salary_to': 200, 'id': 7854}]
 # a = VacanciesControl(b)
 # c = a.vacancy_sort_by_salary_to()
 # print(c)
