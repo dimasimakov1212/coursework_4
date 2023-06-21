@@ -17,11 +17,11 @@ class VacanciesControl:
     """
     Класс позволяет работать с полученными вакансиями
     """
-    list_count = 0
 
     def __init__(self, vacancies_all):
         self.vacancies_all = vacancies_all
-        self.file_data = os.path.abspath('../src/vacancies.json')
+        self.file_data = os.path.abspath('./src/vacancies.json')
+        # self.top_list = []
 
         # self.vacancy_id = self.vacancies_all['id']  # id вакансии
         # self.vacancy_name = self.vacancies_all['name']  # название вакансии
@@ -32,8 +32,6 @@ class VacanciesControl:
         # self.vacancy_vacancy_url = self.vacancies_all['vacancy_url']  # ссылка на вакансию
         # self.vacancy_description = self.vacancies_all['description']  # описание вакансии
         # self.vacancy_experience = self.vacancies_all['experience']  # требуемый опыт работы
-
-        # self.list_count += 1
 
     def __repr__(self):
         return f"{self.__class__.__name__}" \
@@ -50,29 +48,38 @@ class VacanciesControl:
         print("Полученный список вакансий можно отсортировать по зарплате и вывести топ вакансий на экран")
         top_list_num = int(input("Введите количество вакансий выводимых на экран:\n"))
         choice_sort = int(input("Выберите вариант сортировки:\n"
-                                "1 - по максимальной зарплате (иногда ее не указывают в вакансиях)\n"
-                                "2 - по минимальной зарплате\n"
-                                "-------------------------------------"))
+                                "1 - по максимальной зарплате (если параметр не задан, будет указан 0)\n"
+                                "2 - по минимальной зарплате (если параметр не задан, будет указан 0)\n"
+                                "-------------------------------------\n"))
 
         if choice_sort == 1:
             top_list = VacanciesControl.vacancy_sort_by_salary_to(self)
-            VacanciesControl.print_top_to_screen(self, top_list, top_list_num)
+            self.vacancies_all = []
+            for item in range(0, top_list_num):
+                VacanciesControl.print_to_screen(self, top_list[item])
+                self.vacancies_all.append(top_list[item])
+
+            print("Выбранные вакансии записаны в файл")
+            VacanciesControl.writing_json(self)
 
         if choice_sort == 2:
             top_list = VacanciesControl.vacancy_sort_by_salary_from(self)
             VacanciesControl.print_top_to_screen(self, top_list, top_list_num)
+            self.vacancies_all = top_list
+            print("Выбранные вакансии записаны в файл")
+            VacanciesControl.writing_json(self)
 
-    def print_top_to_screen(self, list_in, num_vacancy):
+    def print_to_screen(self, list_in):
         """
         Выводит на экран топ вакансий
         :return:
         """
-        for item in range(0, num_vacancy):
-            print(f"Вакансия: {list_in[item]['name']}\n"
-                  f"Минимальная зарплата: {list_in[item]['salary_from']} {list_in[item]['currency']}\n"
-                  f"Максимальная зарплата: {list_in[item]['salary_to']} {list_in[item]['currency']}\n"
-                  f"Наименование работодателя: {list_in[item]['employer']}\n"
-                  f"Ссылка на вакансию: {list_in[item]['vacancy_url']}\n")
+        print(f"ID вакансии: {list_in['id']}\n"
+              f"Вакансия: {list_in['name']}\n"
+              f"Минимальная зарплата: {list_in['salary_from']} {list_in['currency']}\n"
+              f"Максимальная зарплата: {list_in['salary_to']} {list_in['currency']}\n"
+              f"Наименование работодателя: {list_in['employer']}\n"
+              f"Ссылка на вакансию: {list_in['vacancy_url']}\n")
 
     def vacancy_sort_by_salary_to(self):
         """
@@ -130,7 +137,7 @@ class VacanciesControl:
         Записывает данные в формате json
         :return:
         """
-        with open(self.file_data, 'w', encoding='utf-8') as file:
+        with open(self.file_data, 'w') as file:
             json.dump(self.vacancies_all, file, sort_keys=False, indent=4, ensure_ascii=False)
 
     def reading_json(self):
@@ -143,8 +150,12 @@ class VacanciesControl:
         return data_1
 
 
-# b = [{'salary_to': '500', 'id': 125}, {'salary_to': 0, 'id': 356}, {'salary_to': 200, 'id': 7854}]
+# b = [{'salary_to': 500, 'id': 125}, {'salary_to': 0, 'id': 356}, {'salary_to': 200, 'id': 7854}]
 # a = VacanciesControl(b)
+# print(a.vacancies_all)
 # c = a.vacancy_sort_by_salary_to()
 # print(c)
-# a.write_to_file_menu()
+# VacanciesControl.writing_json(a)
+
+# with open('vacancies.json', 'w') as file:
+#     json.dump(b, file, sort_keys=False, indent=4, ensure_ascii=False)
