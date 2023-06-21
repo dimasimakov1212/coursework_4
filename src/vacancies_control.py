@@ -130,7 +130,7 @@ class VacanciesControl:
         Записывает данные в формате json
         :return:
         """
-        with open(self.file_data, 'w') as file:
+        with open(self.file_data, 'w', encoding='utf-8') as file:
             json.dump(self.vacancies_all, file, sort_keys=False, indent=4, ensure_ascii=False)
 
     def reading_json(self):
@@ -138,7 +138,7 @@ class VacanciesControl:
         Считывает данные из формата json
         :return:
         """
-        with open(self.file_data, 'r') as file:
+        with open(self.file_data, 'r', encoding='utf-8') as file:
             data_1 = json.load(file)
         return data_1
 
