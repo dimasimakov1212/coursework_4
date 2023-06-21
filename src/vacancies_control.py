@@ -67,11 +67,11 @@ class VacanciesControl:
         :return:
         """
         for item in range(0, num_vacancy):
-            print(f"{list_in[item]['name']}\n"
-                  f"{list_in[item]['salary_from']} {list_in[item]['currency']}\n"
-                  f"{list_in[item]['salary_to']} {list_in[item]['currency']}\n"
-                  f"{list_in[item]['employer']}\n"
-                  f"{list_in[item]['vacancy_url']}\n")
+            print(f"Вакансия: {list_in[item]['name']}\n"
+                  f"Минимальная зарплата: {list_in[item]['salary_from']} {list_in[item]['currency']}\n"
+                  f"Максимальная зарплата: {list_in[item]['salary_to']} {list_in[item]['currency']}\n"
+                  f"Наименование работодателя: {list_in[item]['employer']}\n"
+                  f"Ссылка на вакансию: {list_in[item]['vacancy_url']}\n")
 
     def vacancy_sort_by_salary_to(self):
         """
