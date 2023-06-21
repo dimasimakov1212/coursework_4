@@ -43,11 +43,14 @@ class VacanciesControl:
 
     def vacancy_start_menu(self):
         """
-        
+        Создает диалог работы со списком полученных вакансий
         :return:
         """
-        if self.vacancies_all != 0:
-            print(self.vacancies_all)
+        print("Полученный список вакансий можно отсортировать по зарплате и вывести топ вакансий на экран")
+        top_list = int(input("Введите количество вакансий выводимых на экран\n"))
+        choice_sort = int(input("Выберите вариант сортировки:\n"
+                                "1 - по максимальной зарплате (иногда ее не указывают в вакансиях)\n"
+                                "2 - по минимальной зарплате\n"))
 
     def vacancy_sort_by_salary_to(self):
         """

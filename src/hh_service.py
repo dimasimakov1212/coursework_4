@@ -70,8 +70,8 @@ class HeadHunterApi(Vacancies, ABC):
                     # print(vacancy)
                     self.vacancies_list.append(vacancy_dict)  # полученный словарь добавляем в список
 
-            elif len(data_out) < per_page_num:  # проверка на наличие вакансий
-                break
+                if len(data_out) < per_page_num:  # проверка на наличие вакансий
+                    break
 
             else:
                 print("В настоящий момент сайт недоступен. Попробуйте позже.")
