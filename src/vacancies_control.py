@@ -59,8 +59,8 @@ class VacanciesControl:
                 VacanciesControl.print_to_screen(self, top_list[item])
                 self.vacancies_all.append(top_list[item])
 
-            print("Выбранные вакансии записаны в файл")
-            VacanciesControl.writing_json(self)
+            print("Выбранные вакансии будут записаны в файл")
+            VacanciesControl.write_to_file_menu(self)
 
         if choice_sort == 2:
             top_list = VacanciesControl.vacancy_sort_by_salary_from(self)
