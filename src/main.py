@@ -56,7 +56,7 @@ def start_menu():
 def choice_vacancies_portal():
     """
     Позволяет выбрать портал для поиска вакансий и задать поисковый запрос
-    :return:
+    :return: список вакансий
     """
     choice_portal = int(input("Выберите место поиска вакансий:\n"
                               "1 - HeadHunter\n"
@@ -80,7 +80,7 @@ def choice_vacancies_portal():
         return sj_list
 
     if choice_portal == 3:
-        # инициализируем поиск вакансий на Head Hunter и SuperJob по поисковому запросу
+        # инициализируем поиск вакансий на HeadHunter и SuperJob по поисковому запросу
         hh_list = get_hh_vacancies(search_text)
         sj_list = get_sj_vacancies(search_text)
 
@@ -134,6 +134,9 @@ def get_mixed_vacancies(list_1, list_2):
 
 
 def end_program():
+    """
+    Завершает работу программы
+    """
     print("Программа завершила работу")
     general_function(False)
 
@@ -141,7 +144,7 @@ def end_program():
 def reading_json_file(file_data):
     """
     Считывает данные из файла в формате json
-    :return:
+    :return: список вакансий
     """
     with open(file_data, 'r', encoding='utf-8') as file:
         data_list = json.load(file)
@@ -151,4 +154,6 @@ def reading_json_file(file_data):
 if __name__ == '__main__':
     print("Программа предоставляет возможность поиска вакансий "
           "на порталах HeadHunter и SuperJob")
+
+    # запускаем основную функцию
     general_function(True)

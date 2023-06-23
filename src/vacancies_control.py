@@ -18,19 +18,8 @@ class VacanciesControl:
     """
 
     def __init__(self, vacancies_all):
-        self.vacancies_all = vacancies_all
-        self.file_data = os.path.abspath('./src/vacancies.json')
-        # self.top_list = []
-
-        # self.vacancy_id = self.vacancies_all['id']  # id вакансии
-        # self.vacancy_name = self.vacancies_all['name']  # название вакансии
-        # self.vacancy_salary_from = self.vacancies_all['salary_from']  # нижний предел зарплаты
-        # self.vacancy_salary_to = self.vacancies_all['salary_to']  # верхний предел зарплаты
-        # self.vacancy_currency = self.vacancies_all['currency']  # валюта зарплаты
-        # self.vacancy_employer = self.vacancies_all['employer']  # наименование работодателя
-        # self.vacancy_vacancy_url = self.vacancies_all['vacancy_url']  # ссылка на вакансию
-        # self.vacancy_description = self.vacancies_all['description']  # описание вакансии
-        # self.vacancy_experience = self.vacancies_all['experience']  # требуемый опыт работы
+        self.vacancies_all = vacancies_all  # список вакансий
+        self.file_data = os.path.abspath('./src/vacancies.json')  # файл для хранения списка вакансий
 
     def __repr__(self):
         return f"{self.__class__.__name__}" \
@@ -71,27 +60,26 @@ class VacanciesControl:
         """
         Осуществляет вывод на экран и запись вакансий в зависимости от выбора пользователя
         :param top_list_num: количество выводимых в топ вакансий
-        :param top_list: топ вакансий
+        :param top_list: топ вакансий список
         :param top_list_action: выбор действий
         :return:
         """
         if top_list_action == 1:
-            self.vacancies_all = []
+            self.vacancies_all = []  # очищаем список вакансий оъект класса
             for item in range(0, top_list_num):
-                VacanciesControl.print_to_screen(self, top_list[item])
-                self.vacancies_all.append(top_list[item])
+                VacanciesControl.print_to_screen(self, top_list[item])  # выводим топ вакансий на экран
+                self.vacancies_all.append(top_list[item])  # записываем список топ вакансий
 
-            VacanciesControl.write_to_file_menu(self)
+            VacanciesControl.write_to_file_menu(self)  # запускаем меню записи вакансий в файл
 
         if top_list_action == 2:
             for item in range(0, top_list_num):
-                VacanciesControl.print_to_screen(self, top_list[item])
+                VacanciesControl.print_to_screen(self, top_list[item])  # выводим топ вакансий на экран
 
     @classmethod
     def choice_to_record_top_vacancies(cls):
         """
         Диалог записи в файл выведенных в топ вакансий
-        :return:
         """
         choice_record = int(input("Записать выбранные вакансии в файл?\n"
                                   "1 - вывести на экран и записать\n"
@@ -101,7 +89,6 @@ class VacanciesControl:
     def print_to_screen(self, list_in):
         """
         Выводит на экран топ вакансий
-        :return:
         """
         print(f"ID вакансии: {list_in['id']}\n"
               f"Вакансия: {list_in['name']}\n"
@@ -113,7 +100,7 @@ class VacanciesControl:
     def vacancy_sort_by_salary_to(self):
         """
         Сортирует вакансии по максимальной зарплате
-        :return:
+        :return: сортированный список
         """
         self.vacancies_all = sorted(self.vacancies_all, key=lambda k: k['salary_to'], reverse=True)
         return self.vacancies_all
@@ -121,7 +108,7 @@ class VacanciesControl:
     def vacancy_sort_by_salary_from(self):
         """
         Сортирует вакансии по минимальной зарплате
-        :return:
+        :return: сортированный список
         """
         self.vacancies_all = sorted(self.vacancies_all, key=lambda k: k['salary_from'], reverse=True)
         return self.vacancies_all
@@ -129,7 +116,6 @@ class VacanciesControl:
     def write_to_file_menu(self):
         """
         Записывает список вакансий в файл
-        :return:
         """
         # проверяем пустой файл или нет
         try:
