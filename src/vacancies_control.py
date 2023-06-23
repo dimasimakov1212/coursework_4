@@ -135,7 +135,7 @@ class VacanciesControl:
                     for item in data_1:
                         self.vacancies_all.append(item)
 
-                    VacanciesControl.writing_json(self)
+                    VacanciesControl.writing_json(self)  # записывается дополненный список в файл
 
             # если файл пустой записываем данные
             else:
@@ -147,7 +147,6 @@ class VacanciesControl:
     def writing_json(self):
         """
         Записывает данные в формате json
-        :return:
         """
         with open(self.file_data, 'w', encoding='utf-8') as file:
             json.dump(self.vacancies_all, file, sort_keys=False, indent=4, ensure_ascii=False)
@@ -157,7 +156,7 @@ class VacanciesControl:
     def reading_json(self):
         """
         Считывает данные из формата json
-        :return:
+        :return: список вакансий
         """
         with open(self.file_data, 'r', encoding='utf-8') as file:
             data_1 = json.load(file)
@@ -166,19 +165,20 @@ class VacanciesControl:
     def sort_vacancies_menu(self):
         """
         Запускает диалог по сортировке вакансий, сохраненных в файле
-        :return:
         """
         print("Список вакансий можно отредактировать, удалив ненужные по их ID\n"
               "После этого можно запустить новый поиск и добавить новые вакансии в файл\n"
               "-------------------------------------\n")
 
+        # выводим вакансии на экран
         for item in range(0, len(self.vacancies_all)):
             VacanciesControl.print_to_screen(self, self.vacancies_all[item])
 
         id_to_delete = int(input("Введите ID вакансии, которую необходимо удалить:\n"))
 
+        # удалаем вакансию по ID
         VacanciesControl.delete_vacancy_by_id(self, id_to_delete)
-
+        # записываем обновленный список вакансий
         VacanciesControl.writing_json(self)
 
     def delete_vacancy_by_id(self, vacancy_id):
@@ -203,6 +203,3 @@ class VacanciesControl:
 # c = a.vacancy_sort_by_salary_to()
 # print(c)
 # VacanciesControl.writing_json(a)
-
-# with open('vacancies.json', 'w') as file:
-#     json.dump(b, file, sort_keys=False, indent=4, ensure_ascii=False)
