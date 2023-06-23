@@ -5,13 +5,13 @@ import json
 import os
 
 
+# файл для хранения списка вакансий
 file_in = os.path.abspath('./src/vacancies.json')
 
 
 def general_function(check_point):
     """
     Запускает основное тело программы
-    :return:
     """
     if check_point:
         start_menu()
@@ -20,7 +20,6 @@ def general_function(check_point):
 def start_menu():
     """
     Стартовое меню навигации по программе
-    :return:
     """
 
     print("-------------------------------------")
@@ -30,19 +29,27 @@ def start_menu():
                             "3 - выход из программы\n"))
 
     if start_point == 1:
+        # выбираем платформу для поиска вакансий и получаем список
         list_in = choice_vacancies_portal()
+        # инициализируем объект класса для работы с вакансиями
         list_out = VacanciesControl(list_in)
+        # запускаем меню для работы с вакансиями
         VacanciesControl.vacancy_start_menu(list_out)
+        # возвращаемся в основное меню
         general_function(True)
 
     if start_point == 2:
+        # загружаем сохраненный в файл список вакансий
         list_in = reading_json_file(file_in)
+        # инициализируем объект класса для работы с вакансиями
         list_for_sort = VacanciesControl(list_in)
+        # запускаем меню для сортировки списка вакансий
         list_for_sort.sort_vacancies_menu()
-
+        # возвращаемся в основное меню
         general_function(True)
 
     if start_point == 3:
+        # завершаем работу программы
         end_program()
 
 
