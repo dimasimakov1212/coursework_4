@@ -53,17 +53,19 @@ class VacanciesControl:
                                 "-------------------------------------\n"))
 
         if choice_sort == 1:
+            # запрашиваем вариант вывода топа вакансий
             choice_record = VacanciesControl.choice_to_record_top_vacancies(self)
-
+            # получаем сортированный список вакансий по максимальной зарплате
             top_list = VacanciesControl.vacancy_sort_by_salary_to(self)
-
+            # осуществляем вывод на экран и запись вакансий в файл
             VacanciesControl.actions_for_top_vacancies(self, top_list, choice_record, top_list_num)
 
         if choice_sort == 2:
+            # запрашиваем вариант вывода топа вакансий
             choice_record = VacanciesControl.choice_to_record_top_vacancies(self)
-
+            # получаем сортированный список вакансий по минимальной зарплате
             top_list = VacanciesControl.vacancy_sort_by_salary_from(self)
-
+            # осуществляем вывод на экран и запись вакансий в файл
             VacanciesControl.actions_for_top_vacancies(self, top_list, choice_record, top_list_num)
 
     def actions_for_top_vacancies(self, top_list, top_list_action, top_list_num):
@@ -93,7 +95,7 @@ class VacanciesControl:
         """
         choice_record = int(input("Записать выбранные вакансии в файл?\n"
                                   "1 - вывести на экран и записать\n"
-                                  "2 - Вывести на экран (не записывать)\n"))
+                                  "2 - вывести на экран (не записывать)\n"))
         return choice_record
 
     def print_to_screen(self, list_in):
