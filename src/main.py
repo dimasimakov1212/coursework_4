@@ -27,7 +27,7 @@ def start_menu():
     print("Выберите необходимое действие:\n")
     start_point = int(input("1 - запуск поиска вакансий и сортировка списка\n"
                             "2 - редактирование списка вакансий\n"
-                            "4 - выход из программы\n"))
+                            "3 - выход из программы\n"))
 
     if start_point == 1:
         list_in = choice_vacancies_portal()
@@ -42,7 +42,7 @@ def start_menu():
 
         general_function(True)
 
-    if start_point == 4:
+    if start_point == 3:
         end_program()
 
 
