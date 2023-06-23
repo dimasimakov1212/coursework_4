@@ -53,21 +53,48 @@ class VacanciesControl:
                                 "-------------------------------------\n"))
 
         if choice_sort == 1:
+            choice_record = VacanciesControl.choice_to_record_top_vacancies(self)
+
             top_list = VacanciesControl.vacancy_sort_by_salary_to(self)
+
+            VacanciesControl.actions_for_top_vacancies(self, top_list, choice_record, top_list_num)
+
+        if choice_sort == 2:
+            choice_record = VacanciesControl.choice_to_record_top_vacancies(self)
+
+            top_list = VacanciesControl.vacancy_sort_by_salary_from(self)
+
+            VacanciesControl.actions_for_top_vacancies(self, top_list, choice_record, top_list_num)
+
+    def actions_for_top_vacancies(self, top_list, top_list_action, top_list_num):
+        """
+        Осуществляет вывод на экран и запись вакансий в зависимости от выбора пользователя
+        :param top_list_num: количество выводимых в топ вакансий
+        :param top_list: топ вакансий
+        :param top_list_action: выбор действий
+        :return:
+        """
+        if top_list_action == 1:
             self.vacancies_all = []
             for item in range(0, top_list_num):
                 VacanciesControl.print_to_screen(self, top_list[item])
                 self.vacancies_all.append(top_list[item])
 
-            print("Выбранные вакансии будут записаны в файл")
             VacanciesControl.write_to_file_menu(self)
 
-        if choice_sort == 2:
-            top_list = VacanciesControl.vacancy_sort_by_salary_from(self)
-            VacanciesControl.print_top_to_screen(self, top_list, top_list_num)
-            self.vacancies_all = top_list
-            print("Выбранные вакансии записаны в файл")
-            VacanciesControl.writing_json(self)
+        if top_list_action == 2:
+            for item in range(0, top_list_num):
+                VacanciesControl.print_to_screen(self, top_list[item])
+
+    def choice_to_record_top_vacancies(self):
+        """
+        Диалог записи в файл выведенных в топ вакансий
+        :return:
+        """
+        choice_record = int(input("Записать выбранные вакансии в файл?\n"
+                                  "1 - вывести на экран и записать\n"
+                                  "2 - Вывести на экран (не записывать)\n"))
+        return choice_record
 
     def print_to_screen(self, list_in):
         """
