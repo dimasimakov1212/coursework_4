@@ -65,7 +65,7 @@ class HeadHunterApi(Vacancies, ABC):
                     vacancy_dict = HeadHunterApi.get_vacancy_dict(vacancy)
 
                     self.vacancies_list.append(vacancy_dict)  # полученный словарь добавляем в список
-                    vacancies_count += 1
+                    vacancies_count += 1  # увеличиваем счетчик вакансий
 
             if req.status_code != 200:
                 print("В настоящий момент сайт недоступен. Попробуйте позже.")

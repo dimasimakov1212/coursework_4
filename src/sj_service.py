@@ -38,9 +38,10 @@ class SuperJobAPI(Vacancies, ABC):
         :return: список вакансий по запросу
         """
 
-        per_page_num = 2  # задаем кол-во вакансий на 1 странице
-        page_num = 2  # задаем количество страниц
-        api_key: str = os.getenv('SJ_API_KEY')
+        per_page_num = 100  # задаем кол-во вакансий на 1 странице
+        page_num = 5  # задаем количество страниц
+        api_key: str = os.getenv('SJ_API_KEY')  # получаем ключ API
+        vacancies_count = 0  # задаем счетчик вакансий
 
         # перебираем страницы с вакансиями
         for page in range(0, page_num):
@@ -58,21 +59,25 @@ class SuperJobAPI(Vacancies, ABC):
                 response.close()
 
                 data_out = json.loads(data_in)  # преобразуем полученные данные из формата json
-                # print(data_out)
+
+                # for i in data_out:
+                #     print(i)
 
                 # полученные вакансии складываем в словарь и добавляем его в список
                 for vacancy in data_out['objects']:
                     # запускаем метод формирования словаря
                     vacancy_dict = SuperJobAPI.get_vacancy_dict(vacancy)
 
-                    # print(vacancy)
                     self.vacancies_list.append(vacancy_dict)  # полученный словарь добавляем в список
 
-                if len(data_out) < per_page_num:  # проверка на наличие вакансий
-                    break
+                    vacancies_count += 1  # увеличиваем счетчик вакансий
 
-            else:
+            if response.status_code != 200:
                 print("В настоящий момент сайт недоступен. Попробуйте позже.")
+
+            if vacancies_count == data_out['total']:  # проверка на наличие вакансий
+                break
+
 
             time.sleep(0.2)  # временная задержка во избежание блокировки большого количества запросов
 
