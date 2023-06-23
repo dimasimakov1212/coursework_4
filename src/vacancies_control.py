@@ -35,26 +35,31 @@ class VacanciesControl:
         """
         print("Полученный список вакансий можно отсортировать по зарплате и вывести топ вакансий на экран")
         top_list_num = int(input("Введите количество вакансий выводимых на экран:\n"))
-        choice_sort = int(input("Выберите вариант сортировки:\n"
-                                "1 - по максимальной зарплате (если параметр не задан, будет указан 0)\n"
-                                "2 - по минимальной зарплате (если параметр не задан, будет указан 0)\n"
-                                "-------------------------------------\n"))
 
-        if choice_sort == 1:
-            # запрашиваем вариант вывода топа вакансий
-            choice_record = VacanciesControl.choice_to_record_top_vacancies()
-            # получаем сортированный список вакансий по максимальной зарплате
-            top_list = VacanciesControl.vacancy_sort_by_salary_to(self)
-            # осуществляем вывод на экран и запись вакансий в файл
-            VacanciesControl.actions_for_top_vacancies(self, top_list, choice_record, top_list_num)
+        if top_list_num <= len(self.vacancies_all):
+            choice_sort = int(input("Выберите вариант сортировки:\n"
+                                    "1 - по максимальной зарплате (если параметр не задан, будет указан 0)\n"
+                                    "2 - по минимальной зарплате (если параметр не задан, будет указан 0)\n"
+                                    "-------------------------------------\n"))
 
-        if choice_sort == 2:
-            # запрашиваем вариант вывода топа вакансий
-            choice_record = VacanciesControl.choice_to_record_top_vacancies()
-            # получаем сортированный список вакансий по минимальной зарплате
-            top_list = VacanciesControl.vacancy_sort_by_salary_from(self)
-            # осуществляем вывод на экран и запись вакансий в файл
-            VacanciesControl.actions_for_top_vacancies(self, top_list, choice_record, top_list_num)
+            if choice_sort == 1:
+                # запрашиваем вариант вывода топа вакансий
+                choice_record = VacanciesControl.choice_to_record_top_vacancies()
+                # получаем сортированный список вакансий по максимальной зарплате
+                top_list = VacanciesControl.vacancy_sort_by_salary_to(self)
+                # осуществляем вывод на экран и запись вакансий в файл
+                VacanciesControl.actions_for_top_vacancies(self, top_list, choice_record, top_list_num)
+
+            if choice_sort == 2:
+                # запрашиваем вариант вывода топа вакансий
+                choice_record = VacanciesControl.choice_to_record_top_vacancies()
+                # получаем сортированный список вакансий по минимальной зарплате
+                top_list = VacanciesControl.vacancy_sort_by_salary_from(self)
+                # осуществляем вывод на экран и запись вакансий в файл
+                VacanciesControl.actions_for_top_vacancies(self, top_list, choice_record, top_list_num)
+
+        else:
+            print("Введено неправильное количество вакансий, выводимых в топ")
 
     def actions_for_top_vacancies(self, top_list, top_list_action, top_list_num):
         """
@@ -64,6 +69,7 @@ class VacanciesControl:
         :param top_list_action: выбор действий
         :return:
         """
+
         if top_list_action == 1:
             self.vacancies_all = []  # очищаем список вакансий оъект класса
             for item in range(0, top_list_num):
@@ -75,6 +81,7 @@ class VacanciesControl:
         if top_list_action == 2:
             for item in range(0, top_list_num):
                 VacanciesControl.print_to_screen(self, top_list[item])  # выводим топ вакансий на экран
+
 
     @classmethod
     def choice_to_record_top_vacancies(cls):

@@ -60,9 +60,6 @@ class SuperJobAPI(Vacancies, ABC):
 
                 data_out = json.loads(data_in)  # преобразуем полученные данные из формата json
 
-                # for i in data_out:
-                #     print(i)
-
                 # полученные вакансии складываем в словарь и добавляем его в список
                 for vacancy in data_out['objects']:
                     # запускаем метод формирования словаря
@@ -78,11 +75,9 @@ class SuperJobAPI(Vacancies, ABC):
             if vacancies_count == data_out['total']:  # проверка на наличие вакансий
                 break
 
-
             time.sleep(0.2)  # временная задержка во избежание блокировки большого количества запросов
 
         return self.vacancies_list
-
 
     @classmethod
     def get_vacancy_dict(cls, vacancy):
