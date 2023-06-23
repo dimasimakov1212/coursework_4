@@ -1,7 +1,6 @@
 import json
 from abc import ABC, abstractmethod
 import os
-# from src.main import general_function
 
 
 class Vacancies(ABC):
@@ -54,7 +53,7 @@ class VacanciesControl:
 
         if choice_sort == 1:
             # запрашиваем вариант вывода топа вакансий
-            choice_record = VacanciesControl.choice_to_record_top_vacancies(self)
+            choice_record = VacanciesControl.choice_to_record_top_vacancies()
             # получаем сортированный список вакансий по максимальной зарплате
             top_list = VacanciesControl.vacancy_sort_by_salary_to(self)
             # осуществляем вывод на экран и запись вакансий в файл
@@ -62,7 +61,7 @@ class VacanciesControl:
 
         if choice_sort == 2:
             # запрашиваем вариант вывода топа вакансий
-            choice_record = VacanciesControl.choice_to_record_top_vacancies(self)
+            choice_record = VacanciesControl.choice_to_record_top_vacancies()
             # получаем сортированный список вакансий по минимальной зарплате
             top_list = VacanciesControl.vacancy_sort_by_salary_from(self)
             # осуществляем вывод на экран и запись вакансий в файл
@@ -88,7 +87,8 @@ class VacanciesControl:
             for item in range(0, top_list_num):
                 VacanciesControl.print_to_screen(self, top_list[item])
 
-    def choice_to_record_top_vacancies(self):
+    @classmethod
+    def choice_to_record_top_vacancies(cls):
         """
         Диалог записи в файл выведенных в топ вакансий
         :return:
@@ -177,6 +177,36 @@ class VacanciesControl:
         with open(self.file_data, 'r', encoding='utf-8') as file:
             data_1 = json.load(file)
         return data_1
+
+    def sort_vacancies_menu(self):
+        """
+        Запускает диалог по сортировке вакансий, сохраненных в файле
+        :return:
+        """
+        print("Список вакансий можно отредактировать, удалив ненужные по их ID\n"
+              "После этого можно запустить новый поиск и добавить новые вакансии в файл\n")
+
+        for item in range(0, len(self.vacancies_all)):
+            VacanciesControl.print_to_screen(self, self.vacancies_all[item])
+
+        id_to_delete = int(input("Введите ID вакансии, которую необходимо удалить:\n"))
+
+        VacanciesControl.delete_vacancy_by_id(self, id_to_delete)
+
+    def delete_vacancy_by_id(self, vacancy_id):
+        """
+        Удаляет из списка вакансию по выбранному ID
+        :param vacancy_id:
+        :return:
+        """
+        list_to_sort = self.vacancies_all
+        self.vacancies_all = []
+
+        for item in list_to_sort:
+            if item['id'] != vacancy_id:
+                self.vacancies_all.append(item)
+
+        return self.vacancies_all
 
 
 # b = [{'salary_to': 500, 'id': 125}, {'salary_to': 0, 'id': 356}, {'salary_to': 200, 'id': 7854}]

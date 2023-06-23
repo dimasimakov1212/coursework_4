@@ -1,6 +1,11 @@
 from src.hh_service import HeadHunterApi
 from src.sj_service import SuperJobAPI
 from src.vacancies_control import VacanciesControl
+import json
+import os
+
+
+file_in = os.path.abspath('./src/vacancies.json')
 
 
 def general_function(check_point):
@@ -8,12 +13,8 @@ def general_function(check_point):
     Запускает основное тело программы
     :return:
     """
-
     if check_point:
         start_menu()
-
-
-    # print("Полученный список вакансий можно отсортировать по зарплате и вывести топ вакансий на экран")
 
 
 def start_menu():
@@ -35,12 +36,13 @@ def start_menu():
         general_function(True)
 
     if start_point == 2:
-        pass
+        list_in = reading_json_file(file_in)
+        list_for_sort = VacanciesControl(list_in)
+
+        general_function(True)
 
     if start_point == 4:
         end_program()
-
-
 
 
 def choice_vacancies_portal():
@@ -126,6 +128,16 @@ def get_mixed_vacancies(list_1, list_2):
 def end_program():
     print("Программа завершила работу")
     general_function(False)
+
+
+def reading_json_file(file_data):
+    """
+    Считывает данные из файла в формате json
+    :return:
+    """
+    with open(file_data, 'r', encoding='utf-8') as file:
+        data_list = json.load(file)
+    return data_list
 
 
 if __name__ == '__main__':
