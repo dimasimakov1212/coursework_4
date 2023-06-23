@@ -38,6 +38,7 @@ def start_menu():
     if start_point == 2:
         list_in = reading_json_file(file_in)
         list_for_sort = VacanciesControl(list_in)
+        list_for_sort.sort_vacancies_menu()
 
         general_function(True)
 

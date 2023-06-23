@@ -88,7 +88,7 @@ class HeadHunterApi(Vacancies, ABC):
         """
         vacancy_dict = {}  # словарь для данных о вакансии
 
-        vacancy_dict['id'] = vacancy['id']  # id вакансии
+        vacancy_dict['id'] = int(vacancy['id'])  # id вакансии
         vacancy_dict['name'] = vacancy['name']  # название вакансии
         if vacancy['salary']:
             if vacancy['salary']['from'] is None:  # проверяем наличие данных

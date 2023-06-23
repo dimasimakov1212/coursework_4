@@ -169,6 +169,8 @@ class VacanciesControl:
         with open(self.file_data, 'w', encoding='utf-8') as file:
             json.dump(self.vacancies_all, file, sort_keys=False, indent=4, ensure_ascii=False)
 
+        print(f"Файл содержит {len(self.vacancies_all)} вакансий")
+
     def reading_json(self):
         """
         Считывает данные из формата json
@@ -192,6 +194,8 @@ class VacanciesControl:
         id_to_delete = int(input("Введите ID вакансии, которую необходимо удалить:\n"))
 
         VacanciesControl.delete_vacancy_by_id(self, id_to_delete)
+
+        VacanciesControl.writing_json(self)
 
     def delete_vacancy_by_id(self, vacancy_id):
         """
