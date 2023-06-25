@@ -36,7 +36,7 @@ class VacanciesControl:
         print("Полученный список вакансий можно отсортировать по зарплате и вывести топ вакансий на экран")
         top_list_num = int(input("Введите количество вакансий выводимых на экран:\n"))
 
-        if top_list_num <= len(self.vacancies_all):
+        if 0 < top_list_num <= len(self.vacancies_all):
             choice_sort = int(input("Выберите вариант сортировки:\n"
                                     "1 - по максимальной зарплате (если параметр не задан, будет указан 0)\n"
                                     "2 - по минимальной зарплате (если параметр не задан, будет указан 0)\n"
@@ -69,7 +69,7 @@ class VacanciesControl:
         :param top_list_action: выбор действий
         :return:
         """
-
+        # вывод на экран и запись в файл
         if top_list_action == 1:
             self.vacancies_all = []  # очищаем список вакансий оъект класса
             for item in range(0, top_list_num):
@@ -78,10 +78,10 @@ class VacanciesControl:
 
             VacanciesControl.write_to_file_menu(self)  # запускаем меню записи вакансий в файл
 
+        # вывод на экран без записи в файл
         if top_list_action == 2:
             for item in range(0, top_list_num):
                 VacanciesControl.print_to_screen(self, top_list[item])  # выводим топ вакансий на экран
-
 
     @classmethod
     def choice_to_record_top_vacancies(cls):
@@ -192,11 +192,13 @@ class VacanciesControl:
         """
         Удаляет из списка вакансию по выбранному ID
         :param vacancy_id:
-        :return:
+        :return: обновленный список вакансий
         """
-        list_to_sort = self.vacancies_all
-        self.vacancies_all = []
+        list_to_sort = self.vacancies_all  # копируем первоначальный список вакансий
+        self.vacancies_all = []  # обнуляем первоначальный список
 
+        # проверяется id вакансии, если соответствует заданному, то пропускается
+        # остальные вакансии складываются в список
         for item in list_to_sort:
             if item['id'] != vacancy_id:
                 self.vacancies_all.append(item)
