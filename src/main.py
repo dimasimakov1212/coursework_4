@@ -27,42 +27,54 @@ def start_menu():
 
     print("-------------------------------------")
     print("Выберите необходимое действие:\n")
-    start_point = int(input("1 - запуск поиска вакансий и сортировка списка\n"
-                            "2 - редактирование списка вакансий\n"
-                            "3 - запись списка вакансий в файл в формате Excel\n"
-                            "4 - выход из программы\n"))
 
-    if start_point == 1:
-        # выбираем платформу для поиска вакансий и получаем список
-        list_in = choice_vacancies_portal()
-        # инициализируем объект класса для работы с вакансиями
-        list_out = VacanciesControl(list_in)
-        # запускаем меню для работы с вакансиями
-        VacanciesControl.vacancy_start_menu(list_out)
+    try:
+        start_point = int(input("1 - запуск поиска вакансий и сортировка списка\n"
+                                "2 - редактирование списка вакансий\n"
+                                "3 - запись списка вакансий в файл в формате Excel\n"
+                                "4 - выход из программы\n"))
+
+        if start_point == 1:
+            # выбираем платформу для поиска вакансий и получаем список
+            list_in = choice_vacancies_portal()
+            # инициализируем объект класса для работы с вакансиями
+            list_out = VacanciesControl(list_in)
+            # запускаем меню для работы с вакансиями
+            VacanciesControl.vacancy_start_menu(list_out)
+            # возвращаемся в основное меню
+            general_function(True)
+
+        if start_point == 2:
+            # загружаем сохраненный в файл список вакансий
+            list_in = reading_json_file(file_in)
+            # инициализируем объект класса для работы с вакансиями
+            list_for_sort = VacanciesControl(list_in)
+            # запускаем меню для сортировки списка вакансий
+            list_for_sort.sort_vacancies_menu()
+            # возвращаемся в основное меню
+            general_function(True)
+
+        if start_point == 3:
+            # загружаем сохраненный в файл список вакансий
+            list_in = reading_json_file(file_in)
+            # запускаем запись списка вакансий в файл формата Excel
+            writing_to_excel_file(list_in, file_xlsx)
+            # возвращаемся в основное меню
+            general_function(True)
+
+        if start_point == 4:
+            # завершаем работу программы
+            end_program()
+
+        else:
+            print("Ошибка ввода. Попробуйте снова")
+            # возвращаемся в основное меню
+            general_function(True)
+
+    except ValueError:
+        print("Ошибка ввода. Попробуйте снова")
         # возвращаемся в основное меню
         general_function(True)
-
-    if start_point == 2:
-        # загружаем сохраненный в файл список вакансий
-        list_in = reading_json_file(file_in)
-        # инициализируем объект класса для работы с вакансиями
-        list_for_sort = VacanciesControl(list_in)
-        # запускаем меню для сортировки списка вакансий
-        list_for_sort.sort_vacancies_menu()
-        # возвращаемся в основное меню
-        general_function(True)
-
-    if start_point == 3:
-        # загружаем сохраненный в файл список вакансий
-        list_in = reading_json_file(file_in)
-        # запускаем запись списка вакансий в файл формата Excel
-        writing_to_excel_file(list_in, file_xlsx)
-        # возвращаемся в основное меню
-        general_function(True)
-
-    if start_point == 4:
-        # завершаем работу программы
-        end_program()
 
 
 def choice_vacancies_portal():
