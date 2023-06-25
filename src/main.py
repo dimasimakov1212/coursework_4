@@ -67,14 +67,10 @@ def start_menu():
             end_program()
 
         else:
-            print("Ошибка ввода. Попробуйте снова")
-            # возвращаемся в основное меню
-            general_function(True)
+            input_error()
 
     except ValueError:
-        print("Ошибка ввода. Попробуйте снова")
-        # возвращаемся в основное меню
-        general_function(True)
+        input_error()
 
 
 def choice_vacancies_portal():
@@ -190,6 +186,16 @@ def writing_to_excel_file(list_in, file_to_write):
     data_tab.to_excel(file, index=False)
     # закрываем файл
     file.close()
+
+
+def input_error():
+    """
+    Вызывается в случае, если пользователь вводит неправильный параметр
+    возвращает в главное меню
+    """
+    print("Ошибка ввода. Попробуйте снова")
+    # возвращаемся в основное меню
+    general_function(True)
 
 
 if __name__ == '__main__':
