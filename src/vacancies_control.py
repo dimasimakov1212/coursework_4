@@ -129,7 +129,8 @@ class VacanciesControl:
             if os.stat(self.file_data).st_size > 0:
                 print("Файл содержит данные. Что необходимо сделать?:\n"
                       "1 - перезаписать данные\n"
-                      "2 - добавить данные к существующим")
+                      "2 - добавить данные к существующим\n"
+                      "3 - ничего не делать")
                 file_action = int(input())
 
                 # перезаписывает данные о вакансиях
@@ -143,6 +144,9 @@ class VacanciesControl:
                         self.vacancies_all.append(item)
 
                     VacanciesControl.writing_json(self)  # записывается дополненный список в файл
+
+                if file_action == 3:
+                    pass
 
             # если файл пустой записываем данные
             else:

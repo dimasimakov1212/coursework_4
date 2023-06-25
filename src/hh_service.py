@@ -56,7 +56,6 @@ class HeadHunterApi(Vacancies, ABC):
                 req.close()
 
                 data_out = json.loads(data_in)  # преобразуем полученные данные из формата json
-                # print(data_out)
 
                 # полученные вакансии складываем в словарь и добавляем его в список
                 for vacancy in data_out['items']:
@@ -72,9 +71,6 @@ class HeadHunterApi(Vacancies, ABC):
 
             if vacancies_count == data_out['found']:  # проверка на наличие вакансий на странице
                 break
-
-            # print(data_out['found'])
-            # print(vacancies_count)
 
             time.sleep(0.2)  # временная задержка во избежание блокировки большого количества запросов
 
