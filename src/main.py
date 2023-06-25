@@ -3,10 +3,13 @@ from src.sj_service import SuperJobAPI
 from src.vacancies_control import VacanciesControl
 import json
 import os
+import pandas
+import openpyxl
 
 
 # файл для хранения списка вакансий
 file_in = os.path.abspath('./src/vacancies.json')
+file_xlsx = os.path.abspath('./src/vacancies_tab.xlsx')
 
 
 def general_function(check_point):
@@ -26,7 +29,8 @@ def start_menu():
     print("Выберите необходимое действие:\n")
     start_point = int(input("1 - запуск поиска вакансий и сортировка списка\n"
                             "2 - редактирование списка вакансий\n"
-                            "3 - выход из программы\n"))
+                            "3 - запись списка вакансий в в файл в формате Excel\n"
+                            "4 - выход из программы\n"))
 
     if start_point == 1:
         # выбираем платформу для поиска вакансий и получаем список
@@ -49,6 +53,14 @@ def start_menu():
         general_function(True)
 
     if start_point == 3:
+        # загружаем сохраненный в файл список вакансий
+        list_in = reading_json_file(file_in)
+        # запускаем запись списка вакансий в файл формата Excel
+        writing_to_excel_file(list_in, file_xlsx)
+        # возвращаемся в основное меню
+        general_function(True)
+
+    if start_point == 4:
         # завершаем работу программы
         end_program()
 
@@ -149,6 +161,23 @@ def reading_json_file(file_data):
     with open(file_data, 'r', encoding='utf-8') as file:
         data_list = json.load(file)
     return data_list
+
+
+def writing_to_excel_file(list_in, file_to_write):
+    """
+    Записывает список вакансий в файл в формате Excel
+    :param file_to_write: файл для записи вакансий
+    :param list_in: список вакансий
+    :return:
+    """
+    # преобразуем данные для записи
+    data_tab = pandas.DataFrame(data=list_in)
+    # открываем файл для записи
+    file = open(file_to_write, 'wb')
+    # записываем в файл
+    data_tab.to_excel(file, index=False)
+    # закрываем файл
+    file.close()
 
 
 if __name__ == '__main__':
