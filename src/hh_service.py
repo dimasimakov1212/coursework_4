@@ -8,7 +8,7 @@ from src.vacancies_control import Vacancies
 
 class HeadHunterApi(Vacancies, ABC):
     """
-    Класс реализует получение вакансий с портала Head Hunter
+    Класс реализует получение вакансий с портала HeadHunter
     """
     def __init__(self, keyword):
         self.keyword = keyword  # ключевое слово, по которому ведется поиск вакансии
