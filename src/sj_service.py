@@ -88,7 +88,10 @@ class SuperJobAPI(Vacancies, ABC):
         vacancy_dict['salary_from'] = vacancy['payment_from']  # нижний предел зарплаты
         vacancy_dict['salary_to'] = vacancy['payment_to']  # верхний предел зарплаты
         vacancy_dict['currency'] = vacancy['currency']  # валюта зарплаты
-        vacancy_dict['employer'] = vacancy['client']['title']  # наименование работодателя
+        try:
+            vacancy_dict['employer'] = vacancy['client']['title']  # наименование работодателя
+        except KeyError:
+            vacancy_dict['employer'] = 'Нет данных'
         vacancy_dict['vacancy_url'] = vacancy['link']  # ссылка на вакансию
         vacancy_dict['description'] = vacancy['vacancyRichText']  # описание вакансии
         vacancy_dict['experience'] = vacancy['experience']['title']  # требуемый опыт работы
