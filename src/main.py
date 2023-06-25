@@ -78,37 +78,44 @@ def choice_vacancies_portal():
     Позволяет выбрать портал для поиска вакансий и задать поисковый запрос
     :return: список вакансий
     """
-    choice_portal = int(input("Выберите место поиска вакансий:\n"
-                              "1 - HeadHunter\n"
-                              "2 - SuperJob\n"
-                              "3 - совместный поиск\n"))
+    search_text = input('Введите поисковый запрос (например, "python Москва")\n')
 
-    search_text = input('Введите поисковый запрос (например, "python")\n')
+    try:
+        choice_portal = int(input("Выберите место поиска вакансий:\n"
+                                  "1 - HeadHunter\n"
+                                  "2 - SuperJob\n"
+                                  "3 - совместный поиск\n"))
 
-    if choice_portal == 1:
-        # инициализируем поиск вакансий на HeadHunter по поисковому запросу
-        hh_list = get_hh_vacancies(search_text)
-        print(f"Получено {len(hh_list)} вакансий\n"
-              f"-------------------------------------")
-        return hh_list
+        if choice_portal == 1:
+            # инициализируем поиск вакансий на HeadHunter по поисковому запросу
+            hh_list = get_hh_vacancies(search_text)
+            print(f"Получено {len(hh_list)} вакансий\n"
+                  f"-------------------------------------")
+            return hh_list
 
-    if choice_portal == 2:
-        # инициализируем поиск вакансий на SuperJob по поисковому запросу
-        sj_list = get_sj_vacancies(search_text)
-        print(f"Получено {len(sj_list)} вакансий\n"
-              f"-------------------------------------")
-        return sj_list
+        if choice_portal == 2:
+            # инициализируем поиск вакансий на SuperJob по поисковому запросу
+            sj_list = get_sj_vacancies(search_text)
+            print(f"Получено {len(sj_list)} вакансий\n"
+                  f"-------------------------------------")
+            return sj_list
 
-    if choice_portal == 3:
-        # инициализируем поиск вакансий на HeadHunter и SuperJob по поисковому запросу
-        hh_list = get_hh_vacancies(search_text)
-        sj_list = get_sj_vacancies(search_text)
+        if choice_portal == 3:
+            # инициализируем поиск вакансий на HeadHunter и SuperJob по поисковому запросу
+            hh_list = get_hh_vacancies(search_text)
+            sj_list = get_sj_vacancies(search_text)
 
-        # получаем общий список
-        hh_sj_list = get_mixed_vacancies(hh_list, sj_list)
-        print(f"Получено {len(hh_sj_list)} вакансий\n"
-              f"-------------------------------------")
-        return hh_sj_list
+            # получаем общий список
+            hh_sj_list = get_mixed_vacancies(hh_list, sj_list)
+            print(f"Получено {len(hh_sj_list)} вакансий\n"
+                  f"-------------------------------------")
+            return hh_sj_list
+
+        else:
+            input_error()
+
+    except ValueError:
+        input_error()
 
 
 def get_hh_vacancies(search_text):
